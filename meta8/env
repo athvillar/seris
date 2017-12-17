@@ -1,4 +1,0 @@
-export selfNodeId=a8
-export selfNodeHost=localhost
-export selfNodePort=1208
-export monitorwaittime=2
