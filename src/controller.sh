@@ -27,8 +27,8 @@ else
   exit 1
 fi
 
-export metapath=$basepath/$meta
-source $metapath/env
+#export SERIS_META_PATH=$SERIS_HOME/$meta
+#source $SERIS_META_PATH/env
 
 function check() {
   # ttk check
@@ -37,27 +37,29 @@ function check() {
     exit 2
   fi
   # duplicate task check
-  if [ -f $metapath/tasklist ]; then
-    taskExist=`grep $taskId $metapath/tasklist`
-    if [ "$taskExist" != "" ]; then
-      exit 2
-    fi
+  echo $taskId $fromNodeId >> $SERIS_META_PATH/tasklist
+  firstFromNodeId=`grep $taskId $SERIS_META_PATH/tasklist | head -1 | awk '{ print $2 }'`
+  if [ "$fromNodeId" != "$firstFromNodeId" ]; then
+    exit 2
   fi
-  echo $taskId $fromNodeId >> $metapath/tasklist
+  #if [ -f $SERIS_META_PATH/task-$taskId ]; then
+  #  exit 2
+  #fi
+  #touch $SERIS_META_PATH/task-$taskId
 }
 
 function responseback() {
   # response back
-  selfNodeId=`cat $metapath/selfnode | awk -F , '{ print $1 }'`
+  selfNodeId=$SERIS_NODEID
   echo "$selfNodeId STT $taskId" | nc $fromNodeHost $fromNodePort
 }
 
 function dispatch() {
   # dispatch
-  selfNodeId=`cat $metapath/selfnode | awk -F , '{ print $1 }'`
-  selfNodeHost=`cat $metapath/selfnode | awk -F , '{ print $2 }'`
-  selfNodePort=`cat $metapath/selfnode | awk -F , '{ print $3 }'`
-  for node in `cat $metapath/nodelist`; do
+  selfNodeId=$SERIS_NODEID
+  selfNodeHost=$SERIS_HOST
+  selfNodePort=$SERIS_PORT
+  for node in `cat $SERIS_META_PATH/nodelist`; do
     arr=(${node//,/ })
     toNodeId=${arr[0]}
     toNodeHost=${arr[1]}
@@ -65,7 +67,7 @@ function dispatch() {
     if [ "$toNodeId" != "$fromNodeId" ]; then
       newtimeout=`expr $timeout - 1`
       echo "$selfNodeId ODR $selfNodeHost $selfNodePort $taskId $newTtk $newtimeout $dispatch $registry $param" | nc $toNodeHost $toNodePort
-      echo $toNodeId",sent" >> $metapath/task-$taskId
+      echo $toNodeId",sent" >> $SERIS_META_PATH/task-$taskId
     fi
   done
 }
@@ -85,27 +87,27 @@ case "$signal" in
     responseback
     if [ "$dispatch" = "ALL" ]; then
       dispatch
-      rtn=`$registrypath/$registry/run.sh $param`
-      echo "self,finished,"$rtn >> $metapath/task-$taskId
+      rtn=`$SERIS_REGISTRY_PATH/$registry/run.sh $param`
+      echo "self,finished,"$rtn >> $SERIS_META_PATH/task-$taskId
     else
-      rtn=`$registrypath/$registry/run.sh $param`
+      rtn=`$SERIS_REGISTRY_PATH/$registry/run.sh $param`
       sts=$?
-      echo "self,finished,"$rtn >> $metapath/task-$taskId
+      echo "self,finished,"$rtn >> $SERIS_META_PATH/task-$taskId
       if [ "$sts" = "$dispatch" ]; then
         dispatch
       fi
     fi
-    rtn=`$srcpath/taskmonitor.sh $registry $taskId $timeout`
-#echo "RTNRTNRTN $metapath:$rtn"
-    seconds=`echo "sclae=3; $RANDOM*0.00001" | bc`
-    sleep $seconds
+    rtn=`$SERIS_SRC_PATH/taskmonitor.sh $registry $taskId $timeout`
+#echo "RTNRTNRTN $SERIS_META_PATH:$rtn"
+    #seconds=`echo "sclae=3; $RANDOM*0.00001" | bc`
+    #sleep $seconds
     returnback $rtn
   ;;
   STT)
-    echo $fromNodeId",started" >> $metapath/task-$taskId
+    echo $fromNodeId",started" >> $SERIS_META_PATH/task-$taskId
   ;;
   FNS)
-    echo $fromNodeId",finished,"$result >> $metapath/task-$taskId
+    echo $fromNodeId",finished,"$result >> $SERIS_META_PATH/task-$taskId
 #echo "FNS received:"$meta", from:$fromNodeId writed"
   ;;
 esac

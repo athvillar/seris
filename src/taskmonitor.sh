@@ -14,8 +14,8 @@ while true; do
     break
   fi
   isFinish="yes"
-  for nodeId in `cat $metapath/task-$taskId | grep "started" | awk -F , '{ print $1 }'`; do
-    sth=`grep "${nodeId},finished" $metapath/task-$taskId`   
+  for nodeId in `cat $SERIS_META_PATH/task-$taskId | grep "started" | awk -F , '{ print $1 }'`; do
+    sth=`grep "${nodeId},finished" $SERIS_META_PATH/task-$taskId`   
     if [ "$sth" = "" ]; then
       isFinish="no"
       break
@@ -26,6 +26,6 @@ while true; do
   fi
 #  sleep 2
 done
-rtn=`$registrypath/$registry/merge.sh $taskId`
+rtn=`$SERIS_REGISTRY_PATH/$registry/merge.sh $taskId`
 echo $rtn
 

@@ -1,14 +1,14 @@
 #!/bin/bash
 #set -x
 
-basepath=`dirname $0`/..
+SERIS_HOME=`dirname $0`/..
 
 meta=$1
 if [ "$meta" = "" ]; then
   echo "No meta folder specified, take 'meta' as default."
   meta="meta"
 fi
-source $basepath/$meta/env
+source $SERIS_HOME/$meta/env
 
 ttk=$2
 timeout=$3
@@ -21,7 +21,9 @@ if [ "$registry" = "" ]; then
   exit 1
 fi
 
-selfNodeId=`cat $basepath/$meta/selfnode | awk -F , '{ print $1 }'`
-port=`cat $basepath/$meta/selfnode | awk -F , '{ print $3 }'`
+#selfNodeId=`cat $SERIS_HOME/$meta/selfnode | awk -F , '{ print $1 }'`
+selfNodeId=$SERIS_NODEID
+#port=`cat $SERIS_HOME/$meta/selfnode | awk -F , '{ print $3 }'`
+port=$SERIS_PORT
 #echo "ax ODR localhost 1199 $RANDOM $ttk $timeout $dispatch $registry $param"
 echo "ax ODR localhost 1199 $RANDOM $ttk $timeout $dispatch $registry $param" | nc localhost $port

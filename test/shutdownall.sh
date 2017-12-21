@@ -9,6 +9,6 @@ function killprocess() {
 }
 
 killprocess listener.sh
-killprocess ping
-killprocess curl
+#killprocess ping
+#killprocess curl
 killprocess "nc -l"
