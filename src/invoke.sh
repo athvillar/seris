@@ -11,6 +11,7 @@ fi
 source $SERIS_HOME/$meta/env
 
 ttk=$2
+max_time=$3
 timeout=$3
 dispatch=$4
 registry=$5
@@ -21,9 +22,4 @@ if [ "$registry" = "" ]; then
   exit 1
 fi
 
-#selfNodeId=`cat $SERIS_HOME/$meta/selfnode | awk -F , '{ print $1 }'`
-selfNodeId=$SERIS_NODEID
-#port=`cat $SERIS_HOME/$meta/selfnode | awk -F , '{ print $3 }'`
-port=$SERIS_PORT
-#echo "ax ODR localhost 1199 $RANDOM $ttk $timeout $dispatch $registry $param"
-echo "ax ODR localhost 1199 $RANDOM $ttk $timeout $dispatch $registry $param" | nc localhost $port
+echo "00000001 ODR exnodex localhost 1199 $RANDOM $ttk $max_time $timeout $dispatch $registry $param" | nc localhost $SERIS_PORT

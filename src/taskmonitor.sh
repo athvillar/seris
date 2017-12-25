@@ -2,7 +2,7 @@
 #set -x
 
 registry=$1
-taskId=$2
+task_id=$2
 timeout=$3
 
 starttime=`date +%s`
@@ -14,8 +14,8 @@ while true; do
     break
   fi
   isFinish="yes"
-  for nodeId in `cat $SERIS_META_PATH/task-$taskId | grep "started" | awk -F , '{ print $1 }'`; do
-    sth=`grep "${nodeId},finished" $SERIS_META_PATH/task-$taskId`   
+  for node_id in `cat $SERIS_WORK_PATH/task-$task_id | grep "started" | awk -F , '{ print $1 }'`; do
+    sth=`grep "^${node_id},finished" $SERIS_WORK_PATH/task-$task_id`   
     if [ "$sth" = "" ]; then
       isFinish="no"
       break
@@ -24,8 +24,7 @@ while true; do
   if [ "$isFinish" = "yes" ]; then
     break
   fi
-#  sleep 2
 done
-rtn=`$SERIS_REGISTRY_PATH/$registry/merge.sh $taskId`
+rtn=`$SERIS_REGISTRY_PATH/$registry/merge.sh $task_id`
 echo $rtn
 

@@ -9,6 +9,7 @@ i=0
 for line in `cat $SERIS_HOME/test/nodelist`; do
   rm -rf $SERIS_HOME/meta$i
   mkdir $SERIS_HOME/meta$i
+  mkdir $SERIS_HOME/meta$i/work
   echo $line > $SERIS_HOME/meta$i/selfnode
   selfNodeId=`echo $line | awk -F , '{ print $1 }'`
   selfNodeHost=`echo $line | awk -F , '{ print $2 }'`
