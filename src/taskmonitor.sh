@@ -25,6 +25,13 @@ while true; do
     break
   fi
 done
-rtn=`$SERIS_REGISTRY_PATH/$registry/merge.sh $task_id`
+#rtn=`$SERIS_REGISTRY_PATH/$registry/merge.sh $task_id`
+source $SERIS_REGISTRY_PATH/$registry/reduce.sh
+_pre_process
+for _line in `grep ",finished," $SERIS_WORK_PATH/task-$task_id | awk -F , '{ print $3 }'`; do
+  _process
+done
+rtn=`_post_process`
+
 echo $rtn
 

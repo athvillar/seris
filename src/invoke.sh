@@ -9,6 +9,7 @@ if [ "$meta" = "" ]; then
   meta="meta"
 fi
 source $SERIS_HOME/$meta/env
+source $SERIS_HOME/src/common.sh
 
 ttk=$2
 max_time=$3
@@ -22,4 +23,6 @@ if [ "$registry" = "" ]; then
   exit 1
 fi
 
-echo "00000001 ODR exnodex localhost 1199 $RANDOM $ttk $max_time $timeout $dispatch $registry $param" | nc localhost $SERIS_PORT
+task_id=`randn 7`
+msg_id=`randn 8`
+echo "$msg_id ODR exnodex localhost 1199 $task_id $ttk $max_time $timeout $dispatch $registry $param" | nc localhost $SERIS_PORT

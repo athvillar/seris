@@ -1,6 +1,7 @@
 #!/bin/bash
 #set -x
 
+source $SERIS_SRC_PATH/common.sh
 function get_param() {
 
   msg_id=$1
@@ -38,16 +39,6 @@ function get_param() {
     echo "$0: Wrong signal specified("$signal")"
     exit 1
   fi
-}
-
-function randn(){
-  str="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-  rst=""
-  for ((i=0;i<$1;i++)); do
-    num1=`expr $RANDOM % 36`
-    rst=$rst${str:$num1:1}
-  done
-  echo $rst
 }
 
 function check_task() {
