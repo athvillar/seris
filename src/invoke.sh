@@ -25,4 +25,5 @@ fi
 
 task_id=`randn 7`
 msg_id=`randn 8`
-echo "$msg_id ODR exnodex localhost 1199 $task_id $ttk $max_time $timeout $dispatch $registry $param" | nc localhost $SERIS_PORT
+#echo "$msg_id ODR exnodex localhost 1199 $task_id $ttk $max_time $timeout $dispatch $registry $param" | nc localhost $SERIS_PORT
+echo "$msg_id ODR exnodex 172.17.0.16 1179 $task_id $ttk $max_time $timeout $dispatch $registry $param" | nc localhost $SERIS_PORT

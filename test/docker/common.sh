@@ -6,7 +6,7 @@ function run_container_1() {
     -it \
     --rm \
     -v /etc/localtime:/etc/localtime \
-    ubuntu:16.04`
+    nc:latest`
   echo $cid
 }
 
