@@ -25,5 +25,6 @@ fi
 
 task_id=`randn 7`
 msg_id=`randn 8`
-#echo "$msg_id ODR exnodex localhost 1199 $task_id $ttk $max_time $timeout $dispatch $registry $param" | nc localhost $SERIS_PORT
-echo "$msg_id ODR exnodex 172.17.0.16 1179 $task_id $ttk $max_time $timeout $dispatch $registry $param" | nc localhost $SERIS_PORT
+conn_host=`head -1 $SERIS_HOME/$meta/nodelist | awk -F , '{ print $2 }'`
+conn_port=`head -1 $SERIS_HOME/$meta/nodelist | awk -F , '{ print $3 }'`
+echo "$msg_id ODR $SERIS_NODEID $SERIS_HOST $SERIS_PORT $task_id $ttk $max_time $timeout $dispatch $registry $param" | nc $conn_host $conn_port

@@ -44,8 +44,7 @@ function configure_nodes() {
 
     # meta/nodelist
     friend_num=`get_friends_num $node_num`
-    for ((i=1; i<=$friend_num; i++)); do
-      node_index=`echo $node_num | awk '{ srand(); printf("%g", int($1 * rand()) + 1) }'`
+    for node_index in `echo $node_num $friend_num | awk 'BEGIN{ srand() }{for(i=1;i<=$2;i++) printf("%g ", int($1 * rand()) + 1) }'`; do
       line2=`cat $container_list | sed -n "${node_index}p"`
       conn_node_name=`echo $line2 | awk -F , '{ print $2 }'`
       conn_node_ip=`echo $line2 | awk -F , '{ print $3 }'`
