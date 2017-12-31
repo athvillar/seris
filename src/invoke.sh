@@ -25,6 +25,6 @@ fi
 
 task_id=`randn 7`
 msg_id=`randn 8`
-conn_host=`head -1 $SERIS_HOME/$meta/nodelist | awk -F , '{ print $2 }'`
-conn_port=`head -1 $SERIS_HOME/$meta/nodelist | awk -F , '{ print $3 }'`
+conn_host=`head -2 $SERIS_HOME/$meta/node_list | tail -1 | awk -F , '{ print $2 }'`
+conn_port=`head -2 $SERIS_HOME/$meta/node_list | tail -1 | awk -F , '{ print $3 }'`
 echo "$msg_id ODR $SERIS_NODEID $SERIS_HOST $SERIS_PORT $task_id $ttk $max_time $timeout $dispatch $registry $param" | nc $conn_host $conn_port
