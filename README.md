@@ -1,6 +1,6 @@
 # SERIS
-## 中文版见下方
 A Distributed Programmable Scale-Free Network Framework
+##### 中文版见下方
 
 ## A Problem
 As the traditional central-based systems like cloud computing, social network grows, we are tolarating too much of uncontrollable supervisors and monitors. Our voices, photos, credit cards are all under their control, our articles can be easily blocked, our security is based on their honest. But how can we do if they are not honest? The answer is none but keep silent.
@@ -32,7 +32,7 @@ Seris is a light weight framework. Less than 30 KB source so far. This makes ser
 Finally, it's cool.
 
 ## How It Works
-For shell version, each node uses nc(netcat) to open a port for tcp listening. Once a message is received, listener informs a controller to process with it. Depend on the message contents, controller distributed the orders to other nodes or process itself. Thus an order begins flowing all over the internet.
+For shell version, each node uses nc(netcat) to open a port for tcp listening. Once a message is received, listener informs a controller to process with it. Depend on the message contents, controller distributs the order to other nodes or processes itself. Thus an order begins flowing all over the internet.
 
 ## Message Format
 There are 5 different message types: ODR(order), CNC(cancel), HBT(heart beat), RST(result), GTT(got it). Each of them has a different usage and message body.
@@ -72,6 +72,6 @@ The seris/registry folder is for user's program. The program can be registered a
 To be continued...
 
 # SERIS 
-可分布式编程的无尺度网络架构
+可编程的分布式无尺度网络框架
 
 未完待续
