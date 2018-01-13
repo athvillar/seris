@@ -1,11 +1,14 @@
 # SERIS
 ## 中文版见下方
-可分布式编程的无尺度网络架构
+A Distributed Programmable Scale-Free Network Framework
 
 ## A Problem
 As the traditional central-based systems like cloud computing, social network grows, we are tolarating too much of uncontrollable supervisors and monitors. Our voices, photos, credit cards are all under their control, our articles can be easily blocked, our security is based on their honest. But how can we do if they are not honest? The answer is none but keep silent.
+
 Rather than to tolarate their dishonest, fool, evil, why shouldn't we give it a change, build a network without supervisor, make our network more clean.
+
 Seris is a network framework built for this purpose. It is an extendible scale-free network without special nodes, moreover, programmable. So all nodes are born equal.
+
 ## Why seris
 ### Safe
 Seris is a real scale-free network, all nodes are equal with each other. So there is no special node in seris. Follow the direction, program built on seris can have no supervisor or monitor.
@@ -27,10 +30,39 @@ As long as you follow some very simple rules, program on seris is as easy as pro
 Seris is a light weight framework. Less than 30 KB source so far. This makes seris deployable on any device including embedded devices like phone, chips, etc.
 ### Cool
 Finally, it's cool.
-## How can it be
+
+## How It Works
 For shell version, each node use nc(netcat) to open a port for tcp listening.
 There are 5 different message types: ODR(order), CNC(cancel), HBT(heart beat), RST(result), GTT(got it). Each of them has a different usage and message body.
 
-|Msg ID|Signal|NodeID|Node Host|Node Port|Task ID|TTK|Max Time|Time Out|Dispatch Condition|Registry|Param|Dispatched Nodes|Elapsed Time|Estimated Time|Total Index|Index|Result|Corresponding Msg ID|EOF|Meaning|Need Response|Resend Condition|
+## Message Format
+### Message Information
+|Msg Type|Meaning|Need Response|Resend Condition|
+|:-:|:-:|:-:|:-|
+|ODR|Order|Y|No GTT Received|
+|CNC|Cancel||RST/HBT Received|
+|HBT|Heart Beat||As Long As Alive|
+|RST|Result|Y|No GTT Received|
+|GTT|Got It||Never|
 
-## 
+### Message Content
+|Msg Type|Msg ID|NodeID|Node Host|Node Port|Task ID|TTK|Max Time|Time Out|Dispatch Condition|Registry|Param|Dispatched Nodes|Elapsed Time|Estimated Time|Total Index|Index|Result|Corresponding Msg ID|EOF|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|ODR|Y|Y|Y|Y|Y|Y|Y|Y|Y|Y|Y||||||||Y|
+|CNC|Y|Y|||Y||||||||||||||Y|
+|HBT|Y|Y|||Y|||||||Y|Y|Y|||||Y|
+|RST|Y|Y|||Y||||||||||Y|Y|Y||Y|
+|GTT|Y|Y|||Y|||||||||||||Y|Y|
+
+## Run Seris
+### Docker Version
+Not finished yet.
+### By Source
+#### Download Seris
+    git clone https://github.com/athvillar/seris.git
+#### Run Test Code
+    cd seris/test/local
+    ./mkenv.sh
+
+# SERIS 
+可分布式编程的无尺度网络架构
