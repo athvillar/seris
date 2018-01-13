@@ -27,7 +27,7 @@ case "$1" in
   sendmsg)
     node=$2
     shift 2
-    $srcpath/invoke.sh $meta $meta sendMsg "$node $*"
+    $srcpath/invoke.sh $meta sendMsg "$node $*"
   ;;
 esac
 
