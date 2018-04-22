@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #set -x
 
 SERIS_HOME=`dirname $0`/..

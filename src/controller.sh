@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #set -x
 
 source $SERIS_SRC_PATH/common.sh
