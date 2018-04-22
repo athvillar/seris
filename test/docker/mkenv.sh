@@ -52,13 +52,12 @@ function configure_nodes() {
       if [ "$conn_node_name" = "$cname" ]; then
         continue
       fi
-      if [ -f $thispath/meta/nodelist ]; then
-        conn_node_in_list=`grep $conn_node_name $thispath/meta/nodelist`
-        if [ "$conn_node_in_list" != "" ]; then
-          continue
-        fi
+      conn_node_in_list=`echo $SERIS_LINKED_LIST | grep $conn_node_name`
+      if [ "$conn_node_in_list" != "" ]; then
+        continue
       fi
-      echo $conn_node_name,$conn_node_ip,$conn_node_port >> $thispath/meta/nodelist
+      #echo $conn_node_name,$conn_node_ip,$conn_node_port >> $thispath/meta/nodelist
+      SERIS_LINKED_LIST=$SERIS_LINKED_LIST:$conn_node_name,$conn_node_ip,$conn_node_port
     done
 
     # meta/env

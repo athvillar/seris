@@ -18,7 +18,8 @@ for line in `cat $SERIS_TEST_PATH/node_list`; do
   for line2 in `cat $SERIS_TEST_PATH/nodemap | grep "$selfNodeId,"`; do
     connNodeId=`echo $line2 | awk -F , '{ print $2 }'`
     connNodePort=`cat $SERIS_TEST_PATH/node_list | grep "$connNodeId," | awk -F , '{ print $3 }'`
-    echo $connNodeId",localhost,"$connNodePort >> $SERIS_META_PATH/node_list
+    #echo $connNodeId",localhost,"$connNodePort >> $SERIS_META_PATH/node_list
+    export SERIS_LINKED_NODE=$SERIS_LINKED_NODE:$connNodeId",localhost,"$connNodePort
   done
 
   echo "export SERIS_NODEID="$selfNodeId > $SERIS_META_PATH/env
