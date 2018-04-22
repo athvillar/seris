@@ -6,7 +6,8 @@ task_id=$2
 timeout=$3
 
 starttime=`date +%s`
-sleep $monitorwaittime
+# TODO
+sleep 1
 while true; do
   now=`date +%s`
   during=`expr $now - $starttime`

@@ -24,7 +24,6 @@ for line in `cat $SERIS_TEST_PATH/node_list`; do
   echo "export SERIS_NODEID="$selfNodeId > $SERIS_META_PATH/env
   echo "export SERIS_HOST="$selfNodeHost >> $SERIS_META_PATH/env
   echo "export SERIS_PORT="$selfNodePort >> $SERIS_META_PATH/env
-  echo "export monitorwaittime=2" >> $SERIS_META_PATH/env
 
   echo "TASK_ID,FROM_NODE_ID,PID" > $SERIS_WORK_PATH/task_list
   echo "TYPE,MSG_ID,TASK_ID,FROM_NODE_ID,SIGNAL" > $SERIS_WORK_PATH/msg_list

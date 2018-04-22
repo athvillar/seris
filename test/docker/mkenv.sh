@@ -65,7 +65,6 @@ function configure_nodes() {
     echo "export SERIS_NODEID="$cname > $thispath/meta/env
     echo "export SERIS_HOST="$cip >> $thispath/meta/env
     echo "export SERIS_PORT="$cport >> $thispath/meta/env
-    echo "export monitorwaittime=2" >> $thispath/meta/env
 
     docker cp $thispath/meta $cid:/usr/local/seris/
   done
