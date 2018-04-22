@@ -1,12 +1,11 @@
 function run_container_1() {
-  cid=`nvidia-docker run \
+  cid=`docker run \
     --name $1 \
     -h $1 \
     -d \
     -it \
-    --rm \
     -v /etc/localtime:/etc/localtime \
-    nc:latest`
+    seris:latest`
   echo $cid
 }
 
