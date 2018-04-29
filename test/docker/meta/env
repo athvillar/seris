@@ -1,4 +1,0 @@
-export SERIS_NODEID=seris_n2
-export SERIS_HOST=
-export SERIS_PORT=1179
-export monitorwaittime=2
