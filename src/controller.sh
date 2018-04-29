@@ -12,7 +12,7 @@ function get_param() {
     from_node_host=$4
     from_node_port=$5
     task_id=$6
-    ttk=$7
+    ttl=$7
     max_time=$8
     timeout=$9
     dispatch_condition=${10}
@@ -49,9 +49,9 @@ function check_task() {
     echo "No registry specified"
     exit 1
   fi
-  # ttk check
-  newTtk=`expr $ttk - 1`
-  if [ $newTtk -lt 0 ]; then
+  # ttl check
+  newTtl=`expr $ttl - 1`
+  if [ $newTtl -lt 0 ]; then
     exit 2
   fi
   # duplicate task check
@@ -80,7 +80,7 @@ function dispatch() {
     if [ "$to_node_id" != "$from_node_id" ]; then
       newtimeout=`expr $timeout - 1`
       new_msg_id=`randn 8`
-      echo "$new_msg_id ODR $SERIS_NODEID $SERIS_HOST $SERIS_PORT $task_id $newTtk $max_time $newtimeout $dispatch_condition $registry $param" | nc $to_node_host $to_node_port
+      echo "$new_msg_id ODR $SERIS_NODEID $SERIS_HOST $SERIS_PORT $task_id $newTtl $max_time $newtimeout $dispatch_condition $registry $param" | nc $to_node_host $to_node_port
       echo "SND,$new_msg_id,$task_id,$to_node_id,ODR" >> $SERIS_WORK_PATH/msg_list
       echo $to_node_id",sent" >> $SERIS_WORK_PATH/task-$task_id
     fi
