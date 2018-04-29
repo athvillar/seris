@@ -18,8 +18,8 @@ for line in `cat $SERIS_TEST_PATH/node_list`; do
   for line2 in `cat $SERIS_TEST_PATH/nodemap | grep "$selfNodeId,"`; do
     connNodeId=`echo $line2 | awk -F , '{ print $2 }'`
     connNodePort=`cat $SERIS_TEST_PATH/node_list | grep "$connNodeId," | awk -F , '{ print $3 }'`
-    #echo $connNodeId",localhost,"$connNodePort >> $SERIS_META_PATH/node_list
-    export SERIS_LINKED_NODE=$SERIS_LINKED_NODE:$connNodeId",localhost,"$connNodePort
+    echo $connNodeId",localhost,"$connNodePort >> $SERIS_META_PATH/node_list
+    #export SERIS_LINKED_NODE=$SERIS_LINKED_NODE:$connNodeId",localhost,"$connNodePort
   done
 
   echo "export SERIS_NODEID="$selfNodeId > $SERIS_META_PATH/env
@@ -29,6 +29,6 @@ for line in `cat $SERIS_TEST_PATH/node_list`; do
   echo "TASK_ID,FROM_NODE_ID,PID" > $SERIS_WORK_PATH/task_list
   echo "TYPE,MSG_ID,TASK_ID,FROM_NODE_ID,SIGNAL" > $SERIS_WORK_PATH/msg_list
 
-  $SERIS_SRC_PATH/listener.sh meta-$i &
+  $SERIS_HOME/run.sh meta-$i &
   i=`expr $i + 1`
 done

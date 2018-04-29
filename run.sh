@@ -10,7 +10,6 @@ if [ "$meta" != "" -a -d $SERIS_HOME/$meta ]; then
   export SERIS_WORK_PATH=$SERIS_HOME/$meta/work
   source $SERIS_META_PATH/env
 else
-  export SERIS_META_PATH=$SERIS_HOME/meta
   export SERIS_WORK_PATH=$SERIS_HOME/work
   export SERIS_NODEID=`hostname`
   export SERIS_HOST=localhost

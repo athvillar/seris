@@ -72,7 +72,7 @@ function response_back() {
 function dispatch() {
   # dispatch
   #for node in `cat $SERIS_META_PATH/node_list`; do
-  for node in `echo ${SERIS_LINKED_NODE//:/ }`; do
+  for node in `get_linked_node_list`; do
     arr=(${node//,/ })
     to_node_id=${arr[0]}
     to_node_host=${arr[1]}
