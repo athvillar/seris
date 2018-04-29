@@ -1,9 +1,11 @@
 function run_container_1() {
   cid=`docker run \
-    --name $1 \
-    -h $1 \
     -d \
     -it \
+    -e SERIS_NODEID=localhost \
+    -e SERIS_HOST=localhost \
+    -e SERIS_PORT=1179 \
+    -e SERIS_HOME=/usr/local/seris \
     -v /etc/localtime:/etc/localtime \
     seris:latest`
   echo $cid
@@ -32,4 +34,14 @@ function get_friends_num() {
     rtn=$1
   fi
   echo $rtn
+}
+
+function randn() {
+  str="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  rst=""
+  for line in `seq 0 $1`; do
+    num1=`expr $RANDOM % 36`
+    rst=$rst${str:$num1:1}
+  done
+  echo $rst
 }
