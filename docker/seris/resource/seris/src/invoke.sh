@@ -4,7 +4,7 @@
 SERIS_HOME=`dirname $0`/..
 
 if [ $# -lt 2 ]; then
-  echo "Usage: $0 [target ip] [target port] [registry] <parameters>"
+  echo "Usage: $0 [meta path] [registry] <parameters>"
   exit 1
 fi
 
