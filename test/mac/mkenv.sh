@@ -3,7 +3,7 @@
 
 SERIS_HOME=`dirname $0`"/../.."
 SERIS_SRC_PATH=$SERIS_HOME/src
-SERIS_TEST_PATH=$SERIS_HOME/test/local
+SERIS_TEST_PATH=$SERIS_HOME/test/mac
 
 i=0
 for line in `cat $SERIS_TEST_PATH/node_list`; do
