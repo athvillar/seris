@@ -1,13 +1,14 @@
 function run_container_1() {
+  cport=$1
   cid=`docker run \
     -d \
     -it \
     -e SERIS_NODEID=localhost \
     -e SERIS_HOST=localhost \
-    -e SERIS_PORT=1179 \
+    -e SERIS_PORT=$cport \
     -e SERIS_HOME=/usr/local/seris \
     -v /etc/localtime:/etc/localtime \
-    seris:latest`
+    athvillar/seris:latest`
   echo $cid
 }
 
