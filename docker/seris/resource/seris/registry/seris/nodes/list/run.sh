@@ -1,9 +1,7 @@
 #!/bin/bash
 
-nid=$1
-nip=$2
-nport=$3
-
-if [ "$nport" != "" ]; then
-  echo $SERIS_LINKED_NODE
+if [ "$SERIS_META_PATH" != "" && -f $SERIS_META_PATH/node_list ]; then
+  cat $SERIS_META_PATH/node_list
+else
+  echo $SERIS_LINKED_NODES
 fi

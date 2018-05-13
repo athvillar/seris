@@ -3,8 +3,6 @@ function run_container_1() {
   cid=`docker run \
     -d \
     -it \
-    -e SERIS_NODEID=localhost \
-    -e SERIS_HOST=localhost \
     -e SERIS_PORT=$cport \
     -e SERIS_HOME=/usr/local/seris \
     -v /etc/localtime:/etc/localtime \

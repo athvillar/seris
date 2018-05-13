@@ -39,6 +39,7 @@ function configure_nodes() {
   for line in `cat $container_list`; do
   #for ((i=0; i<$node_num; i++)); do
     cid=`echo $line | awk -F , '{ print $1 }'`
+echo $cid
     cip=`echo $line | awk -F , '{ print $2 }'`
 
     #docker cp $SERIS_HOME $cid:/usr/local/
@@ -57,12 +58,12 @@ function configure_nodes() {
       if [ "$conn_node_id" = "$cid" ]; then
         continue
       fi
-      conn_node_in_list=`echo $SERIS_LINKED_LIST | grep $conn_node_id`
+      conn_node_in_list=`echo $SERIS_LINKED_NODES | grep $conn_node_id`
       if [ "$conn_node_in_list" != "" ]; then
         continue
       fi
       #echo $conn_node_id,$conn_node_ip,$conn_node_port >> $thispath/meta/nodelist
-      SERIS_LINKED_LIST=$SERIS_LINKED_LIST:$conn_node_id,$conn_node_ip,$conn_node_port
+      SERIS_LINKED_NODES=$SERIS_LINKED_NODES:$conn_node_id,$conn_node_ip,$conn_node_port
     done
 
     # meta/env
@@ -80,7 +81,7 @@ function configure_nodes() {
     #docker exec -it $SERIS_HOME/src/invoke.sh $SERIS_HOST $SERIS_PORT seris/addenv SERIS_NODEID $cid
     #docker exec -it $SERIS_HOME/src/invoke.sh $SERIS_HOST $SERIS_PORT seris/addenv SERIS_HOST $cip
     #docker exec -it $SERIS_HOME/src/invoke.sh $SERIS_HOST $SERIS_PORT seris/addenv SERIS_PORT $cport
-    #docker exec -it $SERIS_HOME/src/invoke.sh $SERIS_HOST $SERIS_PORT seris/addenv SERIS_LINKED_LIST $SERIS_LINKED_LIST
+    docker exec -it $cid /usr/local/seris/src/invoke.sh $cip $cport seris/nodes/add SERIS_LINKED_NODES $SERIS_LINKED_NODES
     #echo "$cid,$cname,$cip" >> $container_list
   done
 }

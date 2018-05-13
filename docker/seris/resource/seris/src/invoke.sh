@@ -4,7 +4,7 @@
 SERIS_HOME=`dirname $0`/..
 
 if [ $# -lt 2 ]; then
-  echo "Usage: $0 [meta path] [registry] <parameters>"
+  echo "Usage: $0 [target ip] [target port] [registry] <parameters>"
   exit 1
 fi
 
@@ -32,5 +32,5 @@ source $SERIS_HOME/registry/$registry/env.sh
 
 task_id=`randn 7`
 msg_id=`randn 8`
-echo "$msg_id ODR invoker localhost 1177 $task_id $ttl $max_time $timeout $dispatch $registry $param" | nc $target_ip $target_port
+echo "$msg_id ODR invoker `hostname` 1179 $task_id $ttl $max_time $timeout $dispatch $registry $param" | nc $target_ip $target_port
 

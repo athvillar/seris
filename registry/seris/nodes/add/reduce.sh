@@ -3,13 +3,13 @@
 
 # _pre_process: process before loop
 function _pre_process() {
-  sum=0
+  sum=",,"
 }
 
 # _process: process in loop
 # $_line: result from run.sh
 function _process() {
-  sum=`expr $sum + $_line`
+  sum="$sum:$_line"
 }
 
 # _post_process: process after loop
