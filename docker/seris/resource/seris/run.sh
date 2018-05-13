@@ -1,4 +1,5 @@
 #!/bin/sh
+#set -x
 
 export SERIS_HOME=`dirname $0`
 export SERIS_SRC_PATH=$SERIS_HOME/src
