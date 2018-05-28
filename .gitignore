@@ -1,2 +1,3 @@
 meta-*
-docker/seris/resource/
+docker/seris/resource/*
+test/docker/container_list
